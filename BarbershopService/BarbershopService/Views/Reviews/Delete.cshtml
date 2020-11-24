@@ -1,0 +1,41 @@
+﻿@model BarbershopService.Models.Review
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@using BarbershopService.HtmlHelpers
+
+<h1>Удаление</h1>
+
+<h3>Вы действительно хотите удалить отзыв?</h3>
+<div>
+    <h4>Отзыв</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClientMark)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.CreateStars(Model.ClientMark)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ServiceType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ServiceType.Name)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Обратно к списку</a>
+    </form>
+</div>

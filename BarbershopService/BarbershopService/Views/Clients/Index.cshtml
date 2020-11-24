@@ -1,0 +1,199 @@
+﻿@model BarbershopService.ViewModels.ClientViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Клиенты</h1>
+
+<p>
+    <a asp-action="Create">Добавить</a>
+</p>
+<form method="get" class="filter-form">
+    <div class="form-inline">
+        <div class="form-line">
+            <label class="control-label">Тип услуги: </label>
+             @Html.DropDownList("selectedServiceTypeId", Model.ClientFilter.ServiceTypes,
+                 htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-line">
+            <label class="control-label">Оценка клиента: </label>
+            <input name="reviewMark" class="form-control" type="number" value="@Model.ClientFilter.ReviewMark" />
+        </div>
+        <div class="form-line">
+            <label class="control-label">Скидка клиента: </label>
+            <input name="discount" class="form-control" type="text" value="@Model.ClientFilter.Discount" />
+        </div>
+        <div class="form-line">
+            <input type="submit" value="Поиск" class="btn btn-default" />
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.ClientSort.FullNameSort"
+                   asp-route-page="@Model.PageViewModel.PageNumber"
+                   asp-route-selectedServiceTypeId="@Model.ClientFilter.SelectedServiceTypeId"
+                   asp-route-reviewMark="@Model.ClientFilter.ReviewMark"
+                   asp-route-discount="@Model.ClientFilter.Discount"
+                   >
+                    @if (Model.ClientSort.Current == Client.SortState.FullNameAsc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                    }
+                    else if (Model.ClientSort.Current == Client.SortState.FullNameDesc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
+                            <path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z" />
+                        </svg>
+                    }
+                    @Html.DisplayNameFor(model => model.Clients.FirstOrDefault().FullName)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.ClientSort.AddressSort"
+                   asp-route-page="@Model.PageViewModel.PageNumber"
+                   asp-route-selectedServiceTypeId="@Model.ClientFilter.SelectedServiceTypeId"
+                   asp-route-reviewMark="@Model.ClientFilter.ReviewMark"
+                   asp-route-discount="@Model.ClientFilter.Discount"
+                   >
+                    @if (Model.ClientSort.Current == Client.SortState.AddressAsc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                    }
+                    else if (Model.ClientSort.Current == Client.SortState.AddressDesc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
+                            <path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z" />
+                        </svg>
+                    }
+                    @Html.DisplayNameFor(model => model.Clients.FirstOrDefault().Address)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.ClientSort.PhoneNumberSort"
+                   asp-route-page="@Model.PageViewModel.PageNumber"
+                   asp-route-selectedServiceTypeId="@Model.ClientFilter.SelectedServiceTypeId"
+                   asp-route-reviewMark="@Model.ClientFilter.ReviewMark"
+                   asp-route-discount="@Model.ClientFilter.Discount"
+                   >
+                    @if (Model.ClientSort.Current == Client.SortState.PhoneNumberAsc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                    }
+                    else if (Model.ClientSort.Current == Client.SortState.PhoneNumberDesc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
+                            <path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z" />
+                        </svg>
+                    }
+                    @Html.DisplayNameFor(model => model.Clients.FirstOrDefault().PhoneNumber)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@Model.ClientSort.DiscountSort"
+                   asp-route-page="@Model.PageViewModel.PageNumber"
+                   asp-route-selectedServiceTypeId="@Model.ClientFilter.SelectedServiceTypeId"
+                   asp-route-reviewMark="@Model.ClientFilter.ReviewMark"
+                   asp-route-discount="@Model.ClientFilter.Discount"
+                   >
+                    @if (Model.ClientSort.Current == Client.SortState.DiscountAsc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z" />
+                            <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z" />
+                        </svg>
+                    }
+                    else if (Model.ClientSort.Current == Client.SortState.DiscountDesc)
+                    {
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
+                            <path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z" />
+                        </svg>
+                    }
+                    @Html.DisplayNameFor(model => model.Clients.FirstOrDefault().Discount)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Clients) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discount)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                    </svg>
+                </a> |
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-collection" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14.5 13.5h-13A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5zm-13 1A1.5 1.5 0 0 1 0 13V6a1.5 1.5 0 0 1 1.5-1.5h13A1.5 1.5 0 0 1 16 6v7a1.5 1.5 0 0 1-1.5 1.5h-13zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z" />
+                    </svg>
+                </a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-selectedServiceTypeId="@Model.ClientFilter.SelectedServiceTypeId"
+       asp-route-reviewMark="@Model.ClientFilter.ReviewMark"
+       asp-route-discount="@Model.ClientFilter.Discount"
+       class="btn btn-default btn">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-selectedServiceTypeId="@Model.ClientFilter.SelectedServiceTypeId"
+       asp-route-reviewMark="@Model.ClientFilter.ReviewMark"
+       asp-route-discount="@Model.ClientFilter.Discount"
+       class="btn btn-default btn">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
